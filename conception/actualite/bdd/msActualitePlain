@@ -1,0 +1,639 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.4.5
+-- Dumped by pg_dump version 10.5
+
+-- Started on 2018-12-21 16:59:19
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 8 (class 2615 OID 28979)
+-- Name: actualite; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA actualite;
+
+
+ALTER SCHEMA actualite OWNER TO postgres;
+
+--
+-- TOC entry 1 (class 3079 OID 12467)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2675 (class 0 OID 0)
+-- Dependencies: 1
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 178 (class 1259 OID 28988)
+-- Name: actualite; Type: TABLE; Schema: actualite; Owner: postgres
+--
+
+CREATE TABLE actualite.actualite (
+    act_id integer NOT NULL,
+    act_titre character varying(100) NOT NULL,
+    act_introduction character varying(400),
+    act_date_creation timestamp without time zone NOT NULL,
+    act_date_modification timestamp without time zone NOT NULL,
+    act_date_debut_diffusion timestamp without time zone,
+    act_date_fin_diffusion timestamp without time zone,
+    act_prioritaire boolean NOT NULL,
+    act_active boolean NOT NULL
+);
+
+
+ALTER TABLE actualite.actualite OWNER TO postgres;
+
+--
+-- TOC entry 2676 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: TABLE actualite; Type: COMMENT; Schema: actualite; Owner: postgres
+--
+
+COMMENT ON TABLE actualite.actualite IS 'Liste des actualités.';
+
+
+--
+-- TOC entry 2677 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: COLUMN actualite.act_id; Type: COMMENT; Schema: actualite; Owner: postgres
+--
+
+COMMENT ON COLUMN actualite.actualite.act_id IS 'Identifiant unique de l''actualité.';
+
+
+--
+-- TOC entry 2678 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: COLUMN actualite.act_titre; Type: COMMENT; Schema: actualite; Owner: postgres
+--
+
+COMMENT ON COLUMN actualite.actualite.act_titre IS 'Titre de l''actulité.';
+
+
+--
+-- TOC entry 2679 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: COLUMN actualite.act_date_creation; Type: COMMENT; Schema: actualite; Owner: postgres
+--
+
+COMMENT ON COLUMN actualite.actualite.act_date_creation IS 'Date de création de l''actualité.';
+
+
+--
+-- TOC entry 2680 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: COLUMN actualite.act_date_modification; Type: COMMENT; Schema: actualite; Owner: postgres
+--
+
+COMMENT ON COLUMN actualite.actualite.act_date_modification IS 'Date de modification de l''actualité.';
+
+
+--
+-- TOC entry 2681 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: COLUMN actualite.act_date_debut_diffusion; Type: COMMENT; Schema: actualite; Owner: postgres
+--
+
+COMMENT ON COLUMN actualite.actualite.act_date_debut_diffusion IS 'Date de début d''affichage de l''actualité (facultatif).';
+
+
+--
+-- TOC entry 2682 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: COLUMN actualite.act_date_fin_diffusion; Type: COMMENT; Schema: actualite; Owner: postgres
+--
+
+COMMENT ON COLUMN actualite.actualite.act_date_fin_diffusion IS 'Date de fin d''affichage de l''actualité (facultatif).';
+
+
+--
+-- TOC entry 2683 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: COLUMN actualite.act_prioritaire; Type: COMMENT; Schema: actualite; Owner: postgres
+--
+
+COMMENT ON COLUMN actualite.actualite.act_prioritaire IS 'Induqe si une actualité est prioritaire.';
+
+
+--
+-- TOC entry 2684 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: COLUMN actualite.act_active; Type: COMMENT; Schema: actualite; Owner: postgres
+--
+
+COMMENT ON COLUMN actualite.actualite.act_active IS 'Indique si l''actualité est active.';
+
+
+--
+-- TOC entry 174 (class 1259 OID 28980)
+-- Name: actualite_act_id_seq; Type: SEQUENCE; Schema: actualite; Owner: postgres
+--
+
+CREATE SEQUENCE actualite.actualite_act_id_seq
+    START WITH 1
+    INCREMENT BY 50
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE actualite.actualite_act_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 179 (class 1259 OID 28997)
+-- Name: filtre; Type: TABLE; Schema: actualite; Owner: postgres
+--
+
+CREATE TABLE actualite.filtre (
+    flt_id integer NOT NULL,
+    act_id integer NOT NULL,
+    flt_code character varying(50) NOT NULL,
+    flt_valeur character varying(50) NOT NULL
+);
+
+
+ALTER TABLE actualite.filtre OWNER TO postgres;
+
+--
+-- TOC entry 2685 (class 0 OID 0)
+-- Dependencies: 179
+-- Name: COLUMN filtre.act_id; Type: COMMENT; Schema: actualite; Owner: postgres
+--
+
+COMMENT ON COLUMN actualite.filtre.act_id IS 'Identifiant unique de l''actualité.';
+
+
+--
+-- TOC entry 175 (class 1259 OID 28982)
+-- Name: filtre_flt_id_seq; Type: SEQUENCE; Schema: actualite; Owner: postgres
+--
+
+CREATE SEQUENCE actualite.filtre_flt_id_seq
+    START WITH 1
+    INCREMENT BY 50
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE actualite.filtre_flt_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 180 (class 1259 OID 29004)
+-- Name: habilitation; Type: TABLE; Schema: actualite; Owner: postgres
+--
+
+CREATE TABLE actualite.habilitation (
+    act_id integer NOT NULL,
+    hab_code_acces character varying(50) NOT NULL
+);
+
+
+ALTER TABLE actualite.habilitation OWNER TO postgres;
+
+--
+-- TOC entry 2686 (class 0 OID 0)
+-- Dependencies: 180
+-- Name: COLUMN habilitation.act_id; Type: COMMENT; Schema: actualite; Owner: postgres
+--
+
+COMMENT ON COLUMN actualite.habilitation.act_id IS 'Identifiant unique de l''actualité.';
+
+
+--
+-- TOC entry 181 (class 1259 OID 29011)
+-- Name: image; Type: TABLE; Schema: actualite; Owner: postgres
+--
+
+CREATE TABLE actualite.image (
+    sec_id integer NOT NULL,
+    img_libelle character varying(100) NOT NULL,
+    img_content_type character varying(255) NOT NULL,
+    img_taille integer NOT NULL,
+    img_contenu bytea NOT NULL
+);
+
+
+ALTER TABLE actualite.image OWNER TO postgres;
+
+--
+-- TOC entry 182 (class 1259 OID 29020)
+-- Name: ressource; Type: TABLE; Schema: actualite; Owner: postgres
+--
+
+CREATE TABLE actualite.ressource (
+    res_id integer NOT NULL,
+    sec_id integer NOT NULL,
+    res_url character varying(255) NOT NULL,
+    res_libelle character varying(100) NOT NULL,
+    res_ordre integer NOT NULL
+);
+
+
+ALTER TABLE actualite.ressource OWNER TO postgres;
+
+--
+-- TOC entry 176 (class 1259 OID 28984)
+-- Name: ressource_res_id_seq; Type: SEQUENCE; Schema: actualite; Owner: postgres
+--
+
+CREATE SEQUENCE actualite.ressource_res_id_seq
+    START WITH 1
+    INCREMENT BY 50
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE actualite.ressource_res_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 183 (class 1259 OID 29027)
+-- Name: section; Type: TABLE; Schema: actualite; Owner: postgres
+--
+
+CREATE TABLE actualite.section (
+    sec_id integer NOT NULL,
+    act_id integer NOT NULL,
+    sec_titre character varying(100),
+    sec_texte text NOT NULL,
+    sec_ordre integer NOT NULL
+);
+
+
+ALTER TABLE actualite.section OWNER TO postgres;
+
+--
+-- TOC entry 2687 (class 0 OID 0)
+-- Dependencies: 183
+-- Name: COLUMN section.act_id; Type: COMMENT; Schema: actualite; Owner: postgres
+--
+
+COMMENT ON COLUMN actualite.section.act_id IS 'Identifiant unique de l''actualité.';
+
+
+--
+-- TOC entry 177 (class 1259 OID 28986)
+-- Name: section_sec_id_seq; Type: SEQUENCE; Schema: actualite; Owner: postgres
+--
+
+CREATE SEQUENCE actualite.section_sec_id_seq
+    START WITH 1
+    INCREMENT BY 50
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE actualite.section_sec_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2661 (class 0 OID 28988)
+-- Dependencies: 178
+-- Data for Name: actualite; Type: TABLE DATA; Schema: actualite; Owner: postgres
+--
+
+COPY actualite.actualite (act_id, act_titre, act_introduction, act_date_creation, act_date_modification, act_date_debut_diffusion, act_date_fin_diffusion, act_prioritaire, act_active) FROM stdin;
+102	string	string	2018-12-19 17:07:33.705	2018-12-19 17:07:33.705	2018-12-22 01:00:00	2018-12-22 01:00:00	t	t
+152	string	string	2018-12-19 17:26:50.816	2018-12-19 17:26:50.816	2018-12-22 01:00:00	2018-12-22 01:00:00	t	t
+202	yes	string	2018-12-20 10:46:52.746	2018-12-20 10:46:52.746	2018-12-22 01:00:00	2018-12-23 01:00:00	t	t
+252	yes	string	2018-12-20 10:57:57.522	2018-12-20 10:57:57.522	2018-12-22 01:00:00	2018-12-23 01:00:00	t	t
+302	Tutoriel pour configurer une imprimante DELL	Les petits amis de la planette geek, aujourd'hui nous allons configurer la nouvelle imprimante DELL	2018-12-21 14:50:25.864	2018-12-21 14:50:25.864	2018-12-22 01:00:00	2018-12-23 01:00:00	t	t
+\.
+
+
+--
+-- TOC entry 2662 (class 0 OID 28997)
+-- Dependencies: 179
+-- Data for Name: filtre; Type: TABLE DATA; Schema: actualite; Owner: postgres
+--
+
+COPY actualite.filtre (flt_id, act_id, flt_code, flt_valeur) FROM stdin;
+52	102	string	string
+102	152	string	string
+152	202	string	string
+202	252	string	string
+252	302	tuto	IT
+253	302	informatique	pc portable
+254	302	informatique	imprimante
+\.
+
+
+--
+-- TOC entry 2663 (class 0 OID 29004)
+-- Dependencies: 180
+-- Data for Name: habilitation; Type: TABLE DATA; Schema: actualite; Owner: postgres
+--
+
+COPY actualite.habilitation (act_id, hab_code_acces) FROM stdin;
+102	string
+152	string
+202	string
+252	string
+302	admin
+302	employe
+302	stagiaire
+302	visiteur
+\.
+
+
+--
+-- TOC entry 2664 (class 0 OID 29011)
+-- Dependencies: 181
+-- Data for Name: image; Type: TABLE DATA; Schema: actualite; Owner: postgres
+--
+
+COPY actualite.image (sec_id, img_libelle, img_content_type, img_taille, img_contenu) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2665 (class 0 OID 29020)
+-- Dependencies: 182
+-- Data for Name: ressource; Type: TABLE DATA; Schema: actualite; Owner: postgres
+--
+
+COPY actualite.ressource (res_id, sec_id, res_url, res_libelle, res_ordre) FROM stdin;
+52	52	string	string	0
+102	102	string	string	0
+152	152	string	string	0
+202	202	https://www.google.com	string	0
+252	252	https://www.google.com	Google	1
+253	253	https://www.Facebook.com	Facebook	2
+\.
+
+
+--
+-- TOC entry 2666 (class 0 OID 29027)
+-- Dependencies: 183
+-- Data for Name: section; Type: TABLE DATA; Schema: actualite; Owner: postgres
+--
+
+COPY actualite.section (sec_id, act_id, sec_titre, sec_texte, sec_ordre) FROM stdin;
+52	102	string	string	0
+102	152	string	string	0
+152	202	string	string	0
+202	252	string	string	0
+252	302	Installation Drivers	Nous allons installer les drivers. Aller sur www.facebook.fr	1
+253	302	RSE	Si vous avez kiffer, allez aimez ma page facebook	2
+\.
+
+
+--
+-- TOC entry 2688 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: actualite_act_id_seq; Type: SEQUENCE SET; Schema: actualite; Owner: postgres
+--
+
+SELECT pg_catalog.setval('actualite.actualite_act_id_seq', 351, true);
+
+
+--
+-- TOC entry 2689 (class 0 OID 0)
+-- Dependencies: 175
+-- Name: filtre_flt_id_seq; Type: SEQUENCE SET; Schema: actualite; Owner: postgres
+--
+
+SELECT pg_catalog.setval('actualite.filtre_flt_id_seq', 301, true);
+
+
+--
+-- TOC entry 2690 (class 0 OID 0)
+-- Dependencies: 176
+-- Name: ressource_res_id_seq; Type: SEQUENCE SET; Schema: actualite; Owner: postgres
+--
+
+SELECT pg_catalog.setval('actualite.ressource_res_id_seq', 301, true);
+
+
+--
+-- TOC entry 2691 (class 0 OID 0)
+-- Dependencies: 177
+-- Name: section_sec_id_seq; Type: SEQUENCE SET; Schema: actualite; Owner: postgres
+--
+
+SELECT pg_catalog.setval('actualite.section_sec_id_seq', 301, true);
+
+
+--
+-- TOC entry 2523 (class 2606 OID 28995)
+-- Name: actualite pk_actualite; Type: CONSTRAINT; Schema: actualite; Owner: postgres
+--
+
+ALTER TABLE ONLY actualite.actualite
+    ADD CONSTRAINT pk_actualite PRIMARY KEY (act_id);
+
+
+--
+-- TOC entry 2527 (class 2606 OID 29001)
+-- Name: filtre pk_filtre; Type: CONSTRAINT; Schema: actualite; Owner: postgres
+--
+
+ALTER TABLE ONLY actualite.filtre
+    ADD CONSTRAINT pk_filtre PRIMARY KEY (flt_id);
+
+
+--
+-- TOC entry 2531 (class 2606 OID 29008)
+-- Name: habilitation pk_habilitation; Type: CONSTRAINT; Schema: actualite; Owner: postgres
+--
+
+ALTER TABLE ONLY actualite.habilitation
+    ADD CONSTRAINT pk_habilitation PRIMARY KEY (act_id, hab_code_acces);
+
+
+--
+-- TOC entry 2534 (class 2606 OID 29018)
+-- Name: image pk_image; Type: CONSTRAINT; Schema: actualite; Owner: postgres
+--
+
+ALTER TABLE ONLY actualite.image
+    ADD CONSTRAINT pk_image PRIMARY KEY (sec_id);
+
+
+--
+-- TOC entry 2536 (class 2606 OID 29024)
+-- Name: ressource pk_ressource; Type: CONSTRAINT; Schema: actualite; Owner: postgres
+--
+
+ALTER TABLE ONLY actualite.ressource
+    ADD CONSTRAINT pk_ressource PRIMARY KEY (res_id);
+
+
+--
+-- TOC entry 2540 (class 2606 OID 29034)
+-- Name: section pk_section; Type: CONSTRAINT; Schema: actualite; Owner: postgres
+--
+
+ALTER TABLE ONLY actualite.section
+    ADD CONSTRAINT pk_section PRIMARY KEY (sec_id);
+
+
+--
+-- TOC entry 2521 (class 1259 OID 28996)
+-- Name: actualite_pk; Type: INDEX; Schema: actualite; Owner: postgres
+--
+
+CREATE UNIQUE INDEX actualite_pk ON actualite.actualite USING btree (act_id);
+
+
+--
+-- TOC entry 2528 (class 1259 OID 29010)
+-- Name: fac_act_fk; Type: INDEX; Schema: actualite; Owner: postgres
+--
+
+CREATE INDEX fac_act_fk ON actualite.habilitation USING btree (act_id);
+
+
+--
+-- TOC entry 2529 (class 1259 OID 29009)
+-- Name: filtrage_acces_pk; Type: INDEX; Schema: actualite; Owner: postgres
+--
+
+CREATE UNIQUE INDEX filtrage_acces_pk ON actualite.habilitation USING btree (act_id, hab_code_acces);
+
+
+--
+-- TOC entry 2532 (class 1259 OID 29019)
+-- Name: image_pk; Type: INDEX; Schema: actualite; Owner: postgres
+--
+
+CREATE UNIQUE INDEX image_pk ON actualite.image USING btree (sec_id);
+
+
+--
+-- TOC entry 2524 (class 1259 OID 29003)
+-- Name: mda_act_fk; Type: INDEX; Schema: actualite; Owner: postgres
+--
+
+CREATE INDEX mda_act_fk ON actualite.filtre USING btree (act_id);
+
+
+--
+-- TOC entry 2525 (class 1259 OID 29002)
+-- Name: metadata_pk; Type: INDEX; Schema: actualite; Owner: postgres
+--
+
+CREATE UNIQUE INDEX metadata_pk ON actualite.filtre USING btree (flt_id);
+
+
+--
+-- TOC entry 2537 (class 1259 OID 29026)
+-- Name: res_act_fk; Type: INDEX; Schema: actualite; Owner: postgres
+--
+
+CREATE INDEX res_act_fk ON actualite.ressource USING btree (sec_id);
+
+
+--
+-- TOC entry 2538 (class 1259 OID 29025)
+-- Name: ressource_pk; Type: INDEX; Schema: actualite; Owner: postgres
+--
+
+CREATE UNIQUE INDEX ressource_pk ON actualite.ressource USING btree (res_id);
+
+
+--
+-- TOC entry 2541 (class 1259 OID 29036)
+-- Name: sec_act_fk; Type: INDEX; Schema: actualite; Owner: postgres
+--
+
+CREATE INDEX sec_act_fk ON actualite.section USING btree (act_id);
+
+
+--
+-- TOC entry 2542 (class 1259 OID 29035)
+-- Name: section_pk; Type: INDEX; Schema: actualite; Owner: postgres
+--
+
+CREATE UNIQUE INDEX section_pk ON actualite.section USING btree (sec_id);
+
+
+--
+-- TOC entry 2544 (class 2606 OID 29042)
+-- Name: habilitation fk_fac_act; Type: FK CONSTRAINT; Schema: actualite; Owner: postgres
+--
+
+ALTER TABLE ONLY actualite.habilitation
+    ADD CONSTRAINT fk_fac_act FOREIGN KEY (act_id) REFERENCES actualite.actualite(act_id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 2543 (class 2606 OID 29037)
+-- Name: filtre fk_flt_act; Type: FK CONSTRAINT; Schema: actualite; Owner: postgres
+--
+
+ALTER TABLE ONLY actualite.filtre
+    ADD CONSTRAINT fk_flt_act FOREIGN KEY (act_id) REFERENCES actualite.actualite(act_id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 2545 (class 2606 OID 29047)
+-- Name: image fk_img_sec2; Type: FK CONSTRAINT; Schema: actualite; Owner: postgres
+--
+
+ALTER TABLE ONLY actualite.image
+    ADD CONSTRAINT fk_img_sec2 FOREIGN KEY (sec_id) REFERENCES actualite.section(sec_id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 2546 (class 2606 OID 29052)
+-- Name: ressource fk_res_sec; Type: FK CONSTRAINT; Schema: actualite; Owner: postgres
+--
+
+ALTER TABLE ONLY actualite.ressource
+    ADD CONSTRAINT fk_res_sec FOREIGN KEY (sec_id) REFERENCES actualite.section(sec_id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 2547 (class 2606 OID 29057)
+-- Name: section fk_sec_act; Type: FK CONSTRAINT; Schema: actualite; Owner: postgres
+--
+
+ALTER TABLE ONLY actualite.section
+    ADD CONSTRAINT fk_sec_act FOREIGN KEY (act_id) REFERENCES actualite.actualite(act_id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 2674 (class 0 OID 0)
+-- Dependencies: 6
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2018-12-21 16:59:19
+
+--
+-- PostgreSQL database dump complete
+--
+
