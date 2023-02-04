@@ -1,6 +1,8 @@
 package com.jeff.actualite.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,9 +11,11 @@ import java.time.Instant;
 import java.util.List;
 
 @Entity(name = "Actualite")
-@Table(name = "actualite")
-@SequenceGenerator(name = "ActualiteIdGenerator", sequenceName = "ACTUALITE_ACT_ID_SEQ")
+@Table(name = "actualite", schema = "actualite")
+@SequenceGenerator(name = "ActualiteIdGenerator", sequenceName = "ACTUALITE.ACTUALITE_ACT_ID_SEQ", allocationSize = 1)
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Data
 public class Actualite implements Serializable {
 
@@ -24,7 +28,7 @@ public class Actualite implements Serializable {
     private String titre;
 
     @Column(name = "act_introduction")
-    private String Introduction;
+    private String introduction;
 
     @Column(name = "act_date_creation")
     private Instant dateCreation;
@@ -44,7 +48,7 @@ public class Actualite implements Serializable {
     @Column(name = "act_date_modification")
     private Instant dateMiseAJour;
 
-    @OneToMany(mappedBy = "actualite")
+    @OneToMany(mappedBy = "id.actualite")
     List<Habilitation> habilitations;
 
     @OneToMany(mappedBy = "actualite")

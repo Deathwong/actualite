@@ -8,8 +8,8 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity(name = "Section")
-@Table(name = "section")
-@SequenceGenerator(name = "SectionIdGenerator", sequenceName = "SECTION_SEC_ID_SEQ")
+@Table(name = "section", schema = "actualite")
+@SequenceGenerator(name = "SectionIdGenerator", sequenceName = "ACTUALITE.SECTION_SEC_ID_SEQ", allocationSize = 1)
 @Data
 @NoArgsConstructor
 public class Section implements Serializable {

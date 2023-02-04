@@ -22,7 +22,7 @@ public class ActualiteDto {
     private String titre;
 
     @Size(max = 400)
-    private String Introduction;
+    private String introduction;
 
     @NotNull
     @PastOrPresent
@@ -31,7 +31,7 @@ public class ActualiteDto {
     @PastOrPresent
     private Instant dateDebutDiffusion;
 
-    @PastOrPresent
+    @FutureOrPresent
     private Instant dateFinDiffusion;
 
     private boolean prioritaire;
@@ -44,7 +44,6 @@ public class ActualiteDto {
 
     List<HabilitationDto> habilitations;
 
-    @NotEmpty
     List<SectionDto> sections;
 
     List<FiltreDto> filtres;

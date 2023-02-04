@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 @Entity(name = "Ressource")
-@Table(name = "ressource")
-@SequenceGenerator(name = "RessourceIdGenerator", sequenceName = "RESSOURCE_RES_ID_SEQ")
+@Table(name = "ressource", schema = "actualite")
+@SequenceGenerator(name = "RessourceIdGenerator", sequenceName = "ACTUALITE.RESSOURCE_RES_ID_SEQ", allocationSize = 1)
 @Data
 @NoArgsConstructor
 public class Ressource implements Serializable {

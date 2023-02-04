@@ -14,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class HabilitationId implements Serializable {
 
-    @Column(name = "HAB_CODE_ACCES")
+    @Column(name = "hab_code_acces")
     private Long codeAcces;
 
     @ManyToOne

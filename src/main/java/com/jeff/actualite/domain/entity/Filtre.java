@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 @Entity(name = "Filtre")
-@Table(name = "filtre")
-@SequenceGenerator(name = "FiltreIdGenerator", sequenceName = "FILTRE_FLT_ID_SEQ")
+@Table(name = "filtre", schema = "actualite")
+@SequenceGenerator(name = "FiltreIdGenerator", sequenceName = "ACTUALITE.FILTRE_FLT_ID_SEQ", allocationSize = 1)
 @Data
 @NoArgsConstructor
 public class Filtre implements Serializable {

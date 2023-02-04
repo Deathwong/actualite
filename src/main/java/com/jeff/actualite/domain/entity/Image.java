@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 @Entity(name = "Image")
-@Table(name = "image")
+@Table(name = "image", schema = "actualite")
 @Data
 @NoArgsConstructor
 public class Image implements Serializable {
