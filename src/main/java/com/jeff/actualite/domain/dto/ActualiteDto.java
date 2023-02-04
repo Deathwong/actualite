@@ -1,10 +1,7 @@
 package com.jeff.actualite.domain.dto;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -46,7 +43,8 @@ public class ActualiteDto {
 
     List<@Valid HabilitationDto> habilitations;
 
-    List<SectionDto> sections;
+    @NotEmpty
+    List<@Valid SectionDto> sections;
 
-    List<FiltreDto> filtres;
+    List<@Valid FiltreDto> filtres;
 }

@@ -1,6 +1,8 @@
 package com.jeff.actualite.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +13,8 @@ import java.util.List;
 @Table(name = "section", schema = "actualite")
 @SequenceGenerator(name = "SectionIdGenerator", sequenceName = "ACTUALITE.SECTION_SEC_ID_SEQ", allocationSize = 1)
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Section implements Serializable {
 

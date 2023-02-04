@@ -1,6 +1,8 @@
 package com.jeff.actualite.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +13,8 @@ import java.io.Serializable;
 @SequenceGenerator(name = "FiltreIdGenerator", sequenceName = "ACTUALITE.FILTRE_FLT_ID_SEQ", allocationSize = 1)
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Filtre implements Serializable {
 
     @Id
