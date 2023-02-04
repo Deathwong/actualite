@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -31,6 +33,7 @@ public class Actualite implements Serializable {
     private String introduction;
 
     @Column(name = "act_date_creation")
+    @CreationTimestamp
     private Instant dateCreation;
 
     @Column(name = "act_date_debut_diffusion")
@@ -46,6 +49,7 @@ public class Actualite implements Serializable {
     private boolean active;
 
     @Column(name = "act_date_modification")
+    @UpdateTimestamp
     private Instant dateMiseAJour;
 
     @OneToMany(mappedBy = "id.actualite")

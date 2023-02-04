@@ -1,6 +1,10 @@
 package com.jeff.actualite.domain.dto;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,7 +28,6 @@ public class ActualiteDto {
     @Size(max = 400)
     private String introduction;
 
-    @NotNull
     @PastOrPresent
     private Instant dateCreation;
 
@@ -38,11 +41,10 @@ public class ActualiteDto {
 
     private boolean active;
 
-    @NotNull
     @PastOrPresent
     private Instant dateMiseAJour;
 
-    List<HabilitationDto> habilitations;
+    List<@Valid HabilitationDto> habilitations;
 
     List<SectionDto> sections;
 
