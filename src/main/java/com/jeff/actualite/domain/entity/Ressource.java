@@ -1,6 +1,8 @@
 package com.jeff.actualite.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +12,8 @@ import java.io.Serializable;
 @Table(name = "ressource", schema = "actualite")
 @SequenceGenerator(name = "RessourceIdGenerator", sequenceName = "ACTUALITE.RESSOURCE_RES_ID_SEQ", allocationSize = 1)
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Ressource implements Serializable {
 

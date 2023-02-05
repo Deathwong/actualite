@@ -31,5 +31,5 @@ public class SectionDto {
     @Valid
     private ImageDto image;
 
-    List<RessourceDto> ressources;
+    List<@Valid RessourceDto> ressources;
 }

@@ -1,4 +1,4 @@
 package com.jeff.actualite.service;
 
-public class ImageServiceIpml {
+public interface ImageService {
 }
