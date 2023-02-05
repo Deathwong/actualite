@@ -1,6 +1,8 @@
 package com.jeff.actualite.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +11,8 @@ import java.io.Serializable;
 @Entity(name = "Image")
 @Table(name = "image", schema = "actualite")
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Image implements Serializable {
 
@@ -22,7 +26,7 @@ public class Image implements Serializable {
     private String contentType;
 
     @Column(name = "img_taille")
-    private Long taille;
+    private Integer taille;
 
     @Column(name = "img_contenu")
     private Byte[] contenu;

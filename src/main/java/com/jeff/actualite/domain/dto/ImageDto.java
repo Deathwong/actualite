@@ -25,7 +25,7 @@ public class ImageDto {
     private String contentType;
 
     @NotNull
-    private Long taille;
+    private Integer taille;
 
     @NotNull
     private Byte[] contenu;

@@ -1,21 +1,9 @@
 package com.jeff.actualite.service;
 
-import com.jeff.actualite.domain.dto.ActualiteDto;
-import com.jeff.actualite.domain.dto.FiltreDto;
-import com.jeff.actualite.domain.dto.HabilitationDto;
-import com.jeff.actualite.domain.dto.SectionDto;
-import com.jeff.actualite.domain.entity.Actualite;
-import com.jeff.actualite.domain.entity.Filtre;
-import com.jeff.actualite.domain.entity.Habilitation;
-import com.jeff.actualite.domain.entity.Section;
-import com.jeff.actualite.domain.mapper.ActualiteMapper;
-import com.jeff.actualite.domain.mapper.FiltreMapper;
-import com.jeff.actualite.domain.mapper.HabilitationMapper;
-import com.jeff.actualite.domain.mapper.SectionMapper;
-import com.jeff.actualite.repository.ActualiteRepository;
-import com.jeff.actualite.repository.FiltreRepository;
-import com.jeff.actualite.repository.HabilitationRepository;
-import com.jeff.actualite.repository.SectionRepository;
+import com.jeff.actualite.domain.dto.*;
+import com.jeff.actualite.domain.entity.*;
+import com.jeff.actualite.domain.mapper.*;
+import com.jeff.actualite.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -30,10 +18,12 @@ public class CreationActualiteServiceIpml implements CreationActualiteService {
     private final HabilitationRepository habilitationRepository;
     private final FiltreRepository filtreRepository;
     private final SectionRepository sectionRepository;
+    private final ImageRepository imageRepository;
     private final ActualiteMapper actualiteMapper;
     private final HabilitationMapper habilitationMapper;
     private final FiltreMapper filtreMapper;
     private final SectionMapper sectionMapper;
+    private final ImageMapper imageMapper;
 
     @Override
     public Long creer(ActualiteDto actualiteDto) {
@@ -64,11 +54,20 @@ public class CreationActualiteServiceIpml implements CreationActualiteService {
 
         // Sections
         List<SectionDto> sectionDtos = actualiteDto.getSections();
-        List<Section> sections = sectionDtos
-                .stream()
-                .map(sectionDto -> sectionMapper.map(sectionDto, actualite))
-                .toList();
-        sectionRepository.saveAll(sections);
+
+        for (SectionDto sectionDto : sectionDtos) {
+
+            Section section = sectionMapper.map(sectionDto, actualite);
+            section = sectionRepository.save(section);
+
+            // Images
+            if (sectionDto.getImage() != null) {
+                ImageDto imageDto = sectionDto.getImage();
+                Image image = imageMapper.map(imageDto, section);
+                imageRepository.save(image);
+            }
+
+        }
 
         return actualite.getId();
     }
