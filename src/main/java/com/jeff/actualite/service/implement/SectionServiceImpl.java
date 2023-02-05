@@ -9,6 +9,8 @@ import com.jeff.actualite.service.SectionService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class SectionServiceImpl implements SectionService {
@@ -20,5 +22,15 @@ public class SectionServiceImpl implements SectionService {
     public Section save(SectionDto sectionDto, Actualite actualite) {
         Section section = sectionMapper.map(sectionDto, actualite);
         return sectionRepository.save(section);
+    }
+
+    @Override
+    public List<SectionDto> findAllByIdActualite(Long idActualite) {
+        List<Section> sections = sectionRepository.findAllByIdActualite(idActualite);
+
+        return sections
+                .stream()
+                .map(sectionMapper::map)
+                .toList();
     }
 }

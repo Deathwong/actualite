@@ -17,4 +17,12 @@ public class RessourceMapper {
                 .ordre(ressourceDto.getOrdre())
                 .build();
     }
+
+    public RessourceDto map(Ressource ressource) {
+        return RessourceDto.builder()
+                .libelle(ressource.getLibelle())
+                .url(ressource.getUrl())
+                .ordre(ressource.getOrdre())
+                .build();
+    }
 }

@@ -1,5 +1,6 @@
 package com.jeff.actualite.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -15,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SectionDto {
 
     private Long id;
@@ -27,6 +29,10 @@ public class SectionDto {
 
     @NotNull
     private Integer ordre;
+
+    private boolean avecImage;
+
+    private String libelleImage;
 
     @Valid
     private ImageDto image;

@@ -36,6 +36,9 @@ public class Section implements Serializable {
     @JoinColumn(name = "act_id")
     private Actualite actualite;
 
+    @OneToOne(mappedBy = "section")
+    private Image image;
+
     @OneToMany(mappedBy = "section")
     List<Ressource> ressources;
 }

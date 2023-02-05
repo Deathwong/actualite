@@ -31,6 +31,7 @@ public class Image implements Serializable {
     @Column(name = "img_contenu")
     private Byte[] contenu;
 
+    //    @MapsId("sec_id")
     @OneToOne
     @JoinColumn(name = "sec_id")
     private Section section;
