@@ -15,4 +15,8 @@ public class DtoOutput extends AbstractResponse {
         super(HttpStatus.OK.value(), Instant.now(), Constant.OK_MESSAGE);
         this.data = data;
     }
+
+    public DtoOutput() {
+        super(HttpStatus.OK.value(), Instant.now(), Constant.OK_MESSAGE);
+    }
 }

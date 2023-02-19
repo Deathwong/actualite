@@ -6,6 +6,5 @@ import com.jeff.actualite.domain.entity.Actualite;
 import java.util.List;
 
 public interface HabilitationService {
-
     void saveAll(List<HabilitationDto> habilitationDtos, Actualite actualiteBdd);
 }

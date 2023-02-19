@@ -41,4 +41,17 @@ public class RestClientExceptionHandler {
                 HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(EntityNotFoundException.class)
+    ResponseEntity<ErrorResponse> handleActualiteNotFoundException(EntityNotFoundException ex) {
+        return new ResponseEntity<>(new ErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getErrorMessage()),
+                HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(NotHabilitatedException.class)
+    ResponseEntity<ErrorResponse> handleNotHabilitatedException(NotHabilitatedException ex) {
+        return new ResponseEntity<>(new ErrorResponse(HttpStatus.UNAUTHORIZED.value(), ex.getErrorMessage()),
+                HttpStatus.UNAUTHORIZED);
+    }
+
+
 }

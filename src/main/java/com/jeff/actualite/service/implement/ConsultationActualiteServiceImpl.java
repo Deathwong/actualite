@@ -5,6 +5,8 @@ import com.jeff.actualite.domain.entity.Actualite;
 import com.jeff.actualite.domain.mapper.ActualiteMapper;
 import com.jeff.actualite.repository.ActualiteRepository;
 import com.jeff.actualite.service.ConsultationActualiteService;
+import com.jeff.actualite.service.HabilitationActualiteService;
+import com.jeff.actualite.service.VerificationExistenceService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +16,12 @@ public class ConsultationActualiteServiceImpl implements ConsultationActualiteSe
 
     private final ActualiteRepository actualiteRepository;
     private final ActualiteMapper actualiteMapper;
+    private final HabilitationActualiteService habilitationActualiteService;
+    private final VerificationExistenceService verificationExistenceService;
 
     @Override
     public ActualiteDto consulter(Long id) {
+
         Actualite actualite = actualiteRepository.findActualiteById(id);
 
         return actualiteMapper.map(actualite);
