@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 public class AppUtils {
 
     public static void fileToBytes() {
-        byte[] fileBytes = null;
+        byte[] fileBytes;
         try {
             String path = "C:\\Users\\Jeff\\OneDrive\\Images\\jean.jpeg";
 

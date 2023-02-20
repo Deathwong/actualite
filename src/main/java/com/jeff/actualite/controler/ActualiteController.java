@@ -6,10 +6,11 @@ import com.jeff.actualite.domain.response.DtoOutput;
 import com.jeff.actualite.exception.ConstraintViolationException;
 import com.jeff.actualite.exception.EntityNotFoundException;
 import com.jeff.actualite.exception.NotHabilitatedException;
-import com.jeff.actualite.service.*;
+import com.jeff.actualite.service.ActualiteService;
+import com.jeff.actualite.service.HabilitationActualiteService;
+import com.jeff.actualite.service.VerificationExistenceService;
 import com.jeff.actualite.utils.Constant;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -22,11 +23,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ActualiteController {
 
-    private final CreationActualiteService actualiteService;
-    private final ConsultationActualiteService consultationActualiteService;
-    private final ModificationActualiteService modificationActualiteService;
-    private final SuppressionActualiteService suppressionActualiteService;
-    private final RechercheActualiteService rechercheActualiteService;
+    private final ActualiteService actualiteService;
     private final HabilitationActualiteService habilitationActualiteService;
     private final VerificationExistenceService verificationExistenceService;
 
@@ -43,8 +40,9 @@ public class ActualiteController {
     }
 
     @GetMapping
-    ResponseEntity<DtoOutput> consulterActualite(@RequestParam("id") Long id, @RequestParam("codesAcces")
-    List<String> codesAcces) {
+    ResponseEntity<DtoOutput> consulterActualite(@RequestParam("id") Long id,
+                                                 @RequestParam(required = false, value = "codesAcces")
+                                                 List<String> codesAcces) {
 
         // Vérification de l'existence de l'actualité
         if (!verificationExistenceService.existeActualite(id)) {
@@ -57,7 +55,7 @@ public class ActualiteController {
             throw new NotHabilitatedException(Constant.UNAUTHORIZED.formatted(id));
         }
 
-        ActualiteDto actualite = consultationActualiteService.consulter(id);
+        ActualiteDto actualite = actualiteService.consulter(id);
         return ResponseEntity.ok().body(new DtoOutput(actualite));
     }
 
@@ -65,7 +63,8 @@ public class ActualiteController {
     ResponseEntity<DtoOutput> modifierActualite(@RequestParam("id") Long id,
                                                 @RequestBody @Validated ActualiteDto actualiteDto,
                                                 BindingResult bindingResult,
-                                                @RequestParam("codesAcces") List<String> codesAcces) {
+                                                @RequestParam(required = false, value = "codesAcces")
+                                                List<String> codesAcces) {
 
         // Vérification de l'existence de l'actualité
         if (!verificationExistenceService.existeActualite(id)) {
@@ -82,13 +81,14 @@ public class ActualiteController {
             throw new ConstraintViolationException(bindingResult);
         }
 
-        modificationActualiteService.modifier(actualiteDto, id);
+        actualiteService.modifier(actualiteDto, id);
         return ResponseEntity.ok().body(new DtoOutput());
     }
 
     @DeleteMapping
-    ResponseEntity<DtoOutput> supprimerActualite(@RequestParam("id") Long id, @RequestParam("codesAcces")
-    List<String> codesAcces) {
+    ResponseEntity<DtoOutput> supprimerActualite(@RequestParam("id") Long id,
+                                                 @RequestParam(required = false, value = "codesAcces")
+                                                 List<String> codesAcces) {
 
         // Vérification de l'existence de l'actualité
         if (!verificationExistenceService.existeActualite(id)) {
@@ -101,13 +101,13 @@ public class ActualiteController {
             throw new NotHabilitatedException(Constant.UNAUTHORIZED.formatted(id));
         }
 
-        suppressionActualiteService.supprimer(id);
+        actualiteService.supprimer(id);
         return ResponseEntity.ok().body(new DtoOutput());
     }
 
     @GetMapping("/all")
-    ResponseEntity<DtoOutput> rechercherActualite(Pageable pageable, @RequestParam("dateCreation") String dateCreation) {
-        List<ActualiteDto> actualiteDtoPage = rechercheActualiteService.rechercherWithDateCreation(dateCreation);
+    ResponseEntity<DtoOutput> rechercherActualite(@RequestParam("dateCreation") String dateCreation) {
+        List<ActualiteDto> actualiteDtoPage = actualiteService.rechercherWithDateCreation(dateCreation);
         return ResponseEntity.ok().body(new DtoOutput(actualiteDtoPage));
     }
 }

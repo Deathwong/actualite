@@ -7,6 +7,8 @@ import com.jeff.actualite.service.RessourceService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 @Component
 @AllArgsConstructor
 public class SectionMapper {
@@ -30,7 +32,7 @@ public class SectionMapper {
                 .titre(section.getTitre())
                 .texte(section.getTexte())
                 .ordre(section.getOrdre())
-                .avecImage(section.getImage() != null)
+                .avecImage(Objects.nonNull(section.getImage()))
                 .libelleImage(section.getImage() != null ? section.getImage().getTitre() : null)
                 .ressources(ressourceService.findAllByIdSection(section.getId()))
                 .build();
