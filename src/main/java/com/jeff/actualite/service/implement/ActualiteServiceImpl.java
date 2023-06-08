@@ -23,6 +23,7 @@ import org.springframework.util.CollectionUtils;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -40,7 +41,7 @@ public class ActualiteServiceImpl implements ActualiteService {
     private final FiltreRepository filtreRepository;
     private final HabilitationRepository habilitationRepository;
     private final SectionRepository sectionRepository;
-    private final VerificationExistenceService verificationExistenceService;
+    private final ImageService existeImage;
 
     @Override
     public ActualiteDto consulter(Long id) {
@@ -218,7 +219,7 @@ public class ActualiteServiceImpl implements ActualiteService {
         //save images
         Long idImage = imageRepository.getIdImageByIdActualite(actualiteBdd.getId());
         if (idImage != null) {
-            if (verificationExistenceService.existeImage(idImage)) {
+            if (existeImage.existeImage(idImage)) {
                 if (!CollectionUtils.isEmpty(images)) {
                     imageRepository.saveAll(images);
                 }
@@ -238,36 +239,40 @@ public class ActualiteServiceImpl implements ActualiteService {
     public void supprimer(Long id) {
 
         //Activité n°1 - Supprimer la totalité d’une actualité
-        if (verificationExistenceService.existeActualite(id)) {
-            //S004-TX001-RG001
-            //Supprimer l’ensemble des images
-
-            Long idImage = imageRepository.getIdImageByIdActualite(id);
-            if (idImage != null) {
-                if (verificationExistenceService.existeImage(idImage)) {
-                    imageRepository.deleteAllByIdActualite(id);
-                }
+        Long idImage = imageRepository.getIdImageByIdActualite(id);
+        if (idImage != null) {
+            if (existeImage.existeImage(idImage)) {
+                imageRepository.deleteAllByIdActualite(id);
             }
-
-            //S004-TX001-RG002
-            //Supprimer l’ensemble des ressources
-            resourceRepository.deleteAllByIdActualite(id);
-
-            //S004-TX001-RG003
-            //Supprimer l’ensemble des sections
-            sectionRepository.deleteAllByIdActualite(id);
-
-            //S004-TX001-RG004
-            //Supprimer l’ensemble des filtres
-            filtreRepository.deleteAllByIdActualite(id);
-
-            //S004-TX001-RG005
-            //Supprimer l’ensemble des habilitations
-            habilitationRepository.deleteAllByIdActualite(id);
-
-            //S004-TX001-RG006
-            //Supprimer l’actualité
-            actualiteRepository.deleteById(id);
         }
+
+        //S004-TX001-RG002
+        //Supprimer l’ensemble des ressources
+        resourceRepository.deleteAllByIdActualite(id);
+
+        //S004-TX001-RG003
+        //Supprimer l’ensemble des sections
+        sectionRepository.deleteAllByIdActualite(id);
+
+        //S004-TX001-RG004
+        //Supprimer l’ensemble des filtres
+        filtreRepository.deleteAllByIdActualite(id);
+
+        //S004-TX001-RG005
+        //Supprimer l’ensemble des habilitations
+        habilitationRepository.deleteAllByIdActualite(id);
+
+        //S004-TX001-RG006
+        //Supprimer l’actualité
+        actualiteRepository.deleteById(id);
+
+    }
+
+    @Override
+    public boolean existeActualite(Long actualiteId) {
+
+        Optional<Actualite> actualite = actualiteRepository.findById(actualiteId);
+
+        return actualite.isPresent();
     }
 }

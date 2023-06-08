@@ -7,8 +7,7 @@ import com.jeff.actualite.exception.ConstraintViolationException;
 import com.jeff.actualite.exception.EntityNotFoundException;
 import com.jeff.actualite.exception.NotHabilitatedException;
 import com.jeff.actualite.service.ActualiteService;
-import com.jeff.actualite.service.HabilitationActualiteService;
-import com.jeff.actualite.service.VerificationExistenceService;
+import com.jeff.actualite.service.HabilitationService;
 import com.jeff.actualite.utils.Constant;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +23,7 @@ import java.util.List;
 public class ActualiteController {
 
     private final ActualiteService actualiteService;
-    private final HabilitationActualiteService habilitationActualiteService;
-    private final VerificationExistenceService verificationExistenceService;
+    private final HabilitationService habilitationActualiteService;
 
     @PostMapping
     ResponseEntity<DtoOutput> createActualite(@Validated @RequestBody ActualiteDto actualiteDto,
@@ -45,12 +43,12 @@ public class ActualiteController {
                                                  List<String> codesAcces) {
 
         // Vérification de l'existence de l'actualité
-        if (!verificationExistenceService.existeActualite(id)) {
+        if (!actualiteService.existeActualite(id)) {
             throw new EntityNotFoundException(Constant.ENTITY_NOT_FOUND_MESSAGE
                     .formatted(Actualite.class.getSimpleName(), id));
         }
 
-        // Contrôle del'accès
+        // Contrôle de l'accès
         if (!habilitationActualiteService.verifier(id, codesAcces)) {
             throw new NotHabilitatedException(Constant.UNAUTHORIZED.formatted(id));
         }
@@ -67,7 +65,7 @@ public class ActualiteController {
                                                 List<String> codesAcces) {
 
         // Vérification de l'existence de l'actualité
-        if (!verificationExistenceService.existeActualite(id)) {
+        if (!actualiteService.existeActualite(id)) {
             throw new EntityNotFoundException(Constant.ENTITY_NOT_FOUND_MESSAGE
                     .formatted(Actualite.class.getSimpleName(), id));
         }
@@ -91,7 +89,7 @@ public class ActualiteController {
                                                  List<String> codesAcces) {
 
         // Vérification de l'existence de l'actualité
-        if (!verificationExistenceService.existeActualite(id)) {
+        if (!actualiteService.existeActualite(id)) {
             throw new EntityNotFoundException(Constant.ENTITY_NOT_FOUND_MESSAGE
                     .formatted(Actualite.class.getSimpleName(), id));
         }

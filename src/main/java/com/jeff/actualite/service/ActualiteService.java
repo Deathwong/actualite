@@ -22,4 +22,6 @@ public interface ActualiteService {
     public void modifier(ActualiteDto actualiteDto, Long id);
 
     public void supprimer(Long id);
+
+    boolean existeActualite(Long actualiteId);
 }

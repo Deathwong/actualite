@@ -29,4 +29,16 @@ public class HabilitationServiceIpml implements HabilitationService {
             habilitationRepository.saveAll(habilitations);
         }
     }
+
+
+    @Override
+    public boolean verifier(Long id, List<String> codesAcces) {
+
+        boolean existHabilitationByActualiteId = habilitationRepository.existHabilitationByActualiteId(id);
+        if (existHabilitationByActualiteId) {
+            return habilitationRepository.existCodesAccesByActualiteId(codesAcces, id);
+        } else {
+            return true;
+        }
+    }
 }
