@@ -43,7 +43,7 @@ public class ActualiteController {
                                                  List<String> codesAcces) {
 
         // Vérification de l'existence de l'actualité
-        if (!actualiteService.existeActualite(id)) {
+        if (actualiteService.existActualite(id)) {
             throw new EntityNotFoundException(Constant.ENTITY_NOT_FOUND_MESSAGE
                     .formatted(Actualite.class.getSimpleName(), id));
         }
@@ -65,12 +65,12 @@ public class ActualiteController {
                                                 List<String> codesAcces) {
 
         // Vérification de l'existence de l'actualité
-        if (!actualiteService.existeActualite(id)) {
+        if (actualiteService.existActualite(id)) {
             throw new EntityNotFoundException(Constant.ENTITY_NOT_FOUND_MESSAGE
                     .formatted(Actualite.class.getSimpleName(), id));
         }
 
-        // Contrôle del'accès
+        // Contrôle de l'accès
         if (!habilitationActualiteService.verifier(id, codesAcces)) {
             throw new NotHabilitatedException(Constant.UNAUTHORIZED.formatted(id));
         }
@@ -89,7 +89,7 @@ public class ActualiteController {
                                                  List<String> codesAcces) {
 
         // Vérification de l'existence de l'actualité
-        if (!actualiteService.existeActualite(id)) {
+        if (actualiteService.existActualite(id)) {
             throw new EntityNotFoundException(Constant.ENTITY_NOT_FOUND_MESSAGE
                     .formatted(Actualite.class.getSimpleName(), id));
         }

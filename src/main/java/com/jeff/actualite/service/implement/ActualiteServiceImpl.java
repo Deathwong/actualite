@@ -269,10 +269,10 @@ public class ActualiteServiceImpl implements ActualiteService {
     }
 
     @Override
-    public boolean existeActualite(Long actualiteId) {
+    public boolean existActualite(Long actualiteId) {
 
         Optional<Actualite> actualite = actualiteRepository.findById(actualiteId);
 
-        return actualite.isPresent();
+        return actualite.isEmpty();
     }
 }

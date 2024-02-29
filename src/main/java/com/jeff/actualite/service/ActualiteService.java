@@ -9,19 +9,19 @@ import java.util.List;
 
 public interface ActualiteService {
 
-    public ActualiteDto consulter(Long id);
+    ActualiteDto consulter(Long id);
 
-    public Long creer(ActualiteDto actualiteDto);
+    Long creer(ActualiteDto actualiteDto);
 
-    public List<ActualiteDto> rechercherWithDateCreation(String dateCreation);
+    List<ActualiteDto> rechercherWithDateCreation(String dateCreation);
 
-    public Page<ActualiteDto> rechercherWithPageable(Pageable pageable, String titre, Instant dateCreation);
+    Page<ActualiteDto> rechercherWithPageable(Pageable pageable, String titre, Instant dateCreation);
 
-    public List<ActualiteDto> rechercher(String titre);
+    List<ActualiteDto> rechercher(String titre);
 
-    public void modifier(ActualiteDto actualiteDto, Long id);
+    void modifier(ActualiteDto actualiteDto, Long id);
 
-    public void supprimer(Long id);
+    void supprimer(Long id);
 
-    boolean existeActualite(Long actualiteId);
+    boolean existActualite(Long actualiteId);
 }

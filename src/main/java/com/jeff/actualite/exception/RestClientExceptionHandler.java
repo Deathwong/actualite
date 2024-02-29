@@ -34,6 +34,7 @@ public class RestClientExceptionHandler {
         String errorMessageValidation = errorsMap.entrySet().stream()
                 .map(mapentry -> mapentry.getKey() + " => " + mapentry.getValue())
                 .collect(Collectors.joining("; "));
+
         return new ResponseEntity<>(
                 new ErrorResponse(HttpStatus.BAD_REQUEST.value(),
                         Constant.CONSTRAINT_VIOLATION_MESSAGE.formatted(errorMessageValidation)
