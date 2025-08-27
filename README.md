@@ -14,7 +14,7 @@ Service REST Spring Boot pour la gestion d'actualités (création, consultation,
 - Structure du projet
 
 ## Description
-Ce projet est une application Spring Boot (Java 17) exposant des endpoints REST pour gérer des actualités et leurs éléments associés (sections, ressources, images, filtres, habilitations). Les données sont stockées dans une base PostgreSQL. La validation d'entrées et une gestion d'erreurs personnalisée sont intégrées.
+Ce projet est une application Spring Boot (JDK 21 requis) exposant des endpoints REST pour gérer des actualités et leurs éléments associés (sections, ressources, images, filtres, habilitations). Les données sont stockées dans une base PostgreSQL. La validation d'entrées et une gestion d'erreurs personnalisée sont intégrées.
 
 ## Fonctionnalités
 - Créer une actualité avec ses sections, ressources, images, filtres et habilitations.
@@ -24,7 +24,7 @@ Ce projet est une application Spring Boot (Java 17) exposant des endpoints REST 
 - Validation des DTOs et réponses normalisées.
 
 ## Prérequis
-- Java 17+
+- JDK 21 (obligatoire)
 - Maven 3.8+
 - PostgreSQL 13+
 
@@ -36,7 +36,7 @@ Ce projet est une application Spring Boot (Java 17) exposant des endpoints REST 
    - Créer une base nommée `actualite` (si votre encodage local supporte « actualité », vous pouvez aussi la nommer « actualité », mais gardez la cohérence avec la configuration).
    - Exécuter le script d'initialisation présent dans ce dépôt: [`conception/bdd/msActualitePlain`](conception/bdd/msActualitePlain) (via votre client SQL). Ce script crée le schéma/tables requis.
 3. Configurer les identifiants de connexion si besoin (voir section Configuration). Assurez-vous que les credentials PostgreSQL correspondent à ceux de `src/main/resources/application.properties` ou modifiez-les en conséquence.
-4. Construire le projet:
+4. Construire le projet (assurez-vous que Maven utilise JDK 21: `mvn -v` doit afficher Java 21):
    - Windows PowerShell: `mvnw.cmd clean package`
    - Ou avec Maven installé: `mvn clean package`
 5. Démarrer l'application:
