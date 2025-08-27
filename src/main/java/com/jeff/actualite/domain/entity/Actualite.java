@@ -14,13 +14,12 @@ import java.util.Objects;
 @Entity(name = "Actualite")
 @Table(name = "actualite", schema = "actualite")
 @SequenceGenerator(name = "ActualiteIdGenerator", sequenceName = "ACTUALITE.ACTUALITE_ACT_ID_SEQ", allocationSize = 1)
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 public class Actualite implements Serializable {
 
     @Id
